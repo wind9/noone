@@ -2,7 +2,7 @@
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from crawl_study.items import BlogArticle
+from crawl_study.crawl_study.items import BlogArticle
 from scrapy import Item
 
 
