@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/crawl_study/crawl_study" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/laoyaoba/laoyaoba" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/celery_test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/stock" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

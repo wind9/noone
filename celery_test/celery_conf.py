@@ -6,3 +6,12 @@ CELERY_IMPORTS = {
     'celery_test.task1',
     'celery_test.task2'
 }
+
+
+CELERY_SCHEDULE = {
+    'dingshirenwu1':{
+        'task': 'celery_test.task1',
+        'schedule': timedeta(seconds=30),
+        'args': (5, 8)
+    }
+}
