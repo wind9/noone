@@ -6,9 +6,9 @@ from config import get_db_args
 
 def get_engine():
     db_args = get_db_args()
-    connect_str = "{}+{}://{}:{}@{}:{}/{}".format(db_args['db_type'], db_args['connect_type'],
+    connect_str = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(db_args['db_type'], db_args['connect_type'],
                                                   db_args['user'], db_args['pass'], db_args['host'], db_args['port'], db_args['db_name'])
-    engine = create_engine(connect_str)
+    engine = create_engine(connect_str, encoding='utf-8')
     return engine
 
 

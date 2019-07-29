@@ -9,6 +9,7 @@ if not os.path.exists(log_dir):
 log_path = os.path.join(log_dir, 'stock.log')
 
 log_config = {
+    "version": 1.0,
     "formatters": {
         "sample": {
             'format': '%(asctime)s|%(name)s|%(levelname)s|%(message)s',
@@ -22,25 +23,26 @@ log_config = {
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'level': 'info',
+            'level': 'INFO',
             'formatter': 'detail'
         },
         "file": {
-            'class': 'logging.handlers,RotatingFileHandler',
-            'level': 'info',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
             'formatter': 'detail',
             'filename': log_path,
             'encoding': 'utf-8',
             'maxBytes': 1024*1024*5,
+            'backupCount': 10,
         }
     },
     "loggers": {
         'storage': {
-            'handers': ['file', 'console'],
+            'handlers': ['file', 'console'],
             'level': 'INFO',
         },
         'common': {
-            'handers': ['file', 'console'],
+            'handlers': ['file', 'console'],
             'level': 'INFO',
         },
     },

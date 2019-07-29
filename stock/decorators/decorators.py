@@ -11,5 +11,5 @@ def db_commit_decorator(func):
         except Exception as e:
             storage.error("DB operation error, here are details:{}".format(e))
             db_session.rollback()
-        return session_commit
+    return session_commit
 

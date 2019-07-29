@@ -6,3 +6,15 @@ db:
   user: root
   pass: root
   db_name: test
+
+url:
+  #实时行情
+  sina_url : http://hq.sinajs.cn/list=sh600900
+  #分时数据
+  sina_url2 : http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz000001&scale=5&ma=5&datalen=1023
+  xueqiu_url: https://xueqiu.com/stock/forchartk/stocklist.json?symbol=SZ000651&period=1day&type=before&begin=1478620800000&end=1510126200000&_=1510126200000
+
+
+
+
+
