@@ -11,3 +11,15 @@ cf = load(content)
 
 def get_db_args():
     return cf.get('db')
+
+
+def get_urls():
+    return cf.get('url')
+
+
+def get_cookies():
+    return cf.get('cookies')
+
+
+def get_celery_args():
+    return cf.get('celery')

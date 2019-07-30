@@ -1,5 +1,5 @@
 from .basic import db_session
-from .models import StockInfo
+from .models import StockInfo, StorkDayPrice
 from decorators import db_commit_decorator
 from sqlalchemy.exc import IntegrityError as SqlalchemyIntegrityError
 from sqlalchemy.exc import InvalidRequestError
@@ -42,4 +42,27 @@ class StockInfoOper:
         stock_info.market = market
         db_session.add(stock_info)
         db_session.commit()
+
+    @classmethod
+    def get_stock_info(cls):
+        return db_session.query(StockInfo).all()
+
+
+class StockDayPriceOper:
+    @classmethod
+    @db_commit_decorator
+    def insert_day_price(cls, stock_code, trade_date, open, high, close, low, chg, percent, volume, lot_volume):
+        stock_day_price = StorkDayPrice()
+        stock_day_price.stock_code = stock_code
+        stock_day_price.trade_date = trade_date
+        stock_day_price.open = open
+        stock_day_price.high = high
+        stock_day_price.close = close
+        stock_day_price.chg = chg
+        stock_day_price.percent = percent
+        stock_day_price.volume = volume
+        stock_day_price.lot_volume = lot_volume
+        db_session.add(stock_day_price)
+        db_session.commit()
+
 

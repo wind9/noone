@@ -2,39 +2,36 @@ import time
 from datetime import datetime
 
 
-def get_timestamp():
+def get_now_str():
+    d = datetime.now()
+    print(d)
+    print(type(d))
+    d2 = datetime.strftime(d,'%Y%m%d%H%M%S')
+    print(d2)
     return int(time.time()*1000)
 
 
 def date2timstamp(format_date):
-    ts = time.strptime(format_date,"%Y%m%d")
-    print(ts)
-    print(datetime.now())
-    timestamp = time.mktime(ts)*1000
+    ts = time.strptime(format_date + '000000',"%Y%m%d%H%M%S")
+    timestamp = int(time.mktime(ts)*1000)
     return timestamp
 
-def utc2local( utc_dtm ):
-    # UTC 时间转本地时间（ +8:00 ）
-    local_tm = datetime.fromtimestamp( 0 )
-    utc_tm = datetime.utcfromtimestamp( 0 )
-    offset = local_tm - utc_tm
-    return utc_dtm + offset
 
-def local2utc( local_dtm ):
-    # 本地时间转 UTC 时间（ -8:00 ）
-    return datetime.utcfromtimestamp( local_dtm.timestamp() )
+def timestamp2date(timestamp):
+    localtime = time.localtime(timestamp)
+    date = time.strftime('%Y%m%d', localtime)
+    return date
 
 
+def get_now_timestamp():
+    return str(int(time.time()*1000))
 
 
 if __name__ == '__main__':
-    timestamp = get_timestamp()
-    print(timestamp)
-    format_date = '19961118'
-    timestamp = date2timstamp(format_date)
-    print(timestamp)
-    print(type(timestamp))
-    utc_time = datetime.utcnow()
-    print(utc_time)
-    src_time = utc_time.strftime("%Y-%m-%d %H:%M:%S")
-    print(src_time)
+    s = get_now_str()
+    print(s)
+    s2 = date2timstamp('20190211')
+    print(s2)
+    s3 = timestamp2date(848246400000/1000)
+    print(s3)
+

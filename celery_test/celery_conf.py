@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+
 BROKER_URL = 'redis://192.168.88.200:6379/0'
 CELERY_RESULT_BACKEND = 'redis://192.168.88.200:6379/0'
 CELERY_TIMEZONE = 'Asia/Shanghai'
@@ -11,7 +14,7 @@ CELERY_IMPORTS = {
 CELERY_SCHEDULE = {
     'dingshirenwu1':{
         'task': 'celery_test.task1',
-        'schedule': timedeta(seconds=30),
+        'schedule': timedelta(seconds=30),
         'args': (5, 8)
     }
 }
