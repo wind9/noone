@@ -75,9 +75,9 @@ def save_day_price(stock_price_info):
 
 
 if __name__ == '__main__':
-    stock_code = 'SZ000651'
+    #stock_code = 'SZ000651'
     for price_info in get_stock_info2(stock_code):
-        print(price_info)
+        #print(price_info)
         save_day_price(price_info)
 
 

@@ -13,7 +13,7 @@ celery:
 
 
 url:
-  #实时行情
+  #实时
   sina : http://hq.sinajs.cn/list=sh600900
   #分时数据
   sina2 : http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz000001&scale=5&ma=5&datalen=1023

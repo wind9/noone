@@ -58,6 +58,7 @@ class StockDayPriceOper:
         stock_day_price.open = open
         stock_day_price.high = high
         stock_day_price.close = close
+        stock_day_price.low = low
         stock_day_price.chg = chg
         stock_day_price.percent = percent
         stock_day_price.volume = volume

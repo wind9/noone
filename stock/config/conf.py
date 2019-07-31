@@ -1,4 +1,4 @@
-from yaml import load
+from yaml import safe_load as load
 import os
 
 config_path = os.path.join(os.path.dirname(__file__), 'stock.yaml')
