@@ -23,6 +23,7 @@ def get_stock_info(stock_code, start_date, end_date):
     jdata = json.loads(resp.content)
     return jdata
 
+
 def get_stock_info2(stock_code):
     urls = get_urls()
     xq_url = urls.get('xueqiu2')
@@ -77,5 +78,6 @@ if __name__ == '__main__':
     stock_code = 'SZ000651'
     for price_info in get_stock_info2(stock_code):
         print(price_info)
+        save_day_price(price_info)
 
 
