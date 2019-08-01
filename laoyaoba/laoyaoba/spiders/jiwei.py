@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from laoyaoba.laoyaoba.items import LaoyaobaItem
+from laoyaoba.laoyaoba import LaoyaobaItem
 from urllib.parse import urlparse, parse_qs
 import requests
-from lxml import etree
 
 
 class JiweiSpider(CrawlSpider):

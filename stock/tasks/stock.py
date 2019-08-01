@@ -75,9 +75,17 @@ def save_day_price(stock_price_info):
 
 
 if __name__ == '__main__':
-    #stock_code = 'SZ000651'
-    for price_info in get_stock_info2(stock_code):
-        #print(price_info)
-        save_day_price(price_info)
+    stock_code = 'SZ000651'
+    # for price_info in get_stock_info2(stock_code):
+    #     print(price_info)
+    start_date = '2016-08-01'
+    end_date = '2019-08-01'
+    day_price = StockDayPriceOper.get_day_price(stock_code, start_date ,end_date)
+    for price in day_price:
+        open = price.open
+        trade_date = price.trade_date
+        print(trade_date,open)
+        #print(price)
+        #save_day_price(price_info)
 
 

@@ -3,6 +3,7 @@ from .models import StockInfo, StorkDayPrice
 from decorators import db_commit_decorator
 from sqlalchemy.exc import IntegrityError as SqlalchemyIntegrityError
 from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy import and_
 from pymysql.err import IntegrityError as PymysqlIntegrityError
 
 
@@ -65,5 +66,9 @@ class StockDayPriceOper:
         stock_day_price.lot_volume = lot_volume
         db_session.add(stock_day_price)
         db_session.commit()
+
+    @classmethod
+    def get_day_price(cls, stock_code, start_date, end_date):
+        return db_session.query(StorkDayPrice).filter(and_(StorkDayPrice.stock_code==stock_code, StorkDayPrice.trade_date>=start_date, StorkDayPrice.trade_date<=end_date))
 
 
