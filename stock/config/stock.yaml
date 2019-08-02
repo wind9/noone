@@ -1,10 +1,17 @@
 db:
-  host: 192.168.88.200
-  port: 3306
+#  host: 192.168.88.200
+#  port: 3306
+#  db_type: mysql
+#  connect_type: pymysql
+#  user: root
+#  pass: root
+#  db_name: test
+  host: 39.108.16.58
+  port: 8911
   db_type: mysql
   connect_type: pymysql
-  user: root
-  pass: root
+  user: wh
+  pass: wh2013
   db_name: test
 
 celery:
