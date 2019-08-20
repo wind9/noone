@@ -1,0 +1,15 @@
+db:
+  db_type: mysql
+  db_connect_type: pymysql
+  host: 192.168.88.200
+  port: 3306
+  user: weibo
+  password: weibo
+  db_name: weibo
+
+redis:
+  host: 192.168.88.200
+  port: 6379
+  user: weibo
+  password: weibo
+  sentinel: ''

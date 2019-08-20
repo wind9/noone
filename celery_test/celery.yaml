@@ -1,0 +1,5 @@
+redis:
+  host: 192.168.88.200
+  port: xx
+  username: test
+  passwd: test
