@@ -7,12 +7,21 @@ with open(config_file_path) as f:
 cf = load(content)
 
 
+def get_code_username():
+    return cf.get('yundama_username')
+
+
+def get_code_password():
+    return cf.get('yundama_password')
+
+
 def get_redis_args():
     return cf.get('redis')
 
 
 def get_redis_master():
     return cf.get('master', '')
+
 
 def get_db_args():
     return cf.get('db')
@@ -35,7 +44,8 @@ def get_broker_and_backend():
         return broker_url, backend_url
 
 
-__all__ = ['get_redis_args', 'get_db_args', 'get_broker_and_backend', 'get_redis_master']
+__all__ = ['get_redis_args', 'get_db_args', 'get_broker_and_backend', 'get_redis_master',
+           'get_code_username', 'get_code_password']
 
 
 if __name__ == '__main__':
