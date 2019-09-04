@@ -9,11 +9,11 @@ class FakeChromeUA:
     os_type = [
         '(Windows NT 10.0; Win64; x64)', '(Windows NT 6.1; WOW64)', '(Macintosh; Intel Mac OS X 10_12_6)'
     ]
-    chrome_version = 'Chrome/{}.0.{}.{}'.format(first_num, second_num, third_num)
+    brower_version = 'Chrome/{}.0.{}.{}'.format(first_num, second_num, third_num)
 
     @classmethod
     def get_ua(cls):
-        return " ".join(['Mozilla/5.0',random.choice(cls.os_type), 'AppleWebKit/537.36', '(KHTML, like Gecko)', cls.chrome_version])
+        return " ".join(['Mozilla/5.0',random.choice(cls.os_type), 'AppleWebKit/537.36', '(KHTML, like Gecko)', cls.brower_version])
 
 
 headers = {
