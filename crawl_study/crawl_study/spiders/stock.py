@@ -3,6 +3,7 @@ import requests
 
 api_url = "http://hq.sinajs.cn/list={}"
 
+
 def get_stock_info(stocks):
     stock_info_list = []
     if isinstance(stocks, list):

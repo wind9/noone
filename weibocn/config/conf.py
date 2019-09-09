@@ -11,4 +11,8 @@ def get_db_args():
     return cf.get('db')
 
 
-__all__ = ['get_db_args']
+def get_redis_args():
+    return cf.get('redis')
+
+
+__all__ = ['get_db_args', 'get_redis_args']

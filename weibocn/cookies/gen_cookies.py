@@ -47,7 +47,7 @@ def get_cookies():
 
 
 cookies = get_cookies()
-test_url = "https://weibo.com/yichanxiaoheshang"
+test_url = "https://weibo.com/hanhan"
 r = requests.get(test_url, cookies=cookies, headers=headers)
 #print(r.text)
 follows, fans, tweets = get_follows_fans_tweets(r.text)
