@@ -13,3 +13,4 @@ redis:
   port: 8912
   password: rt0755
   broker_db: 1
+  cookies_db: 2

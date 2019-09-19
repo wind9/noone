@@ -1,9 +1,11 @@
 import random
-from .workers import import appdirs
+#from task.login import execute_gen_cookies
+from task.workers import app
+import time
 
 
-task_num = 10
-for i in range(task_num):
-    x = random.randint(0,100)
-    y = random.randint(0,100)
-    app.send_tasks()
+if __name__ == '__main__':
+    task_num = 10
+    app.send_task("task.cookies.execute_gen_cookies", args=(), queue="cookies_queue", routing_key="for_cookies")
+    time.sleep(3)
+        #execute_gen_cookies.apply_async((x, y))

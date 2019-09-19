@@ -112,15 +112,15 @@ if __name__ == '__main__':
     print(cookies)
     # print("--------------prelogin1----------")
     # session1, jdata1 = pre_login1(session, jdata)
-    # cookies1 = session1.cookies
+    # cookies1 = session1.login
     # print(cookies1)
     # print("--------------prelogin2----------")
     # session2, jdata2 = pre_login1(session1, jdata)
-    # cookies2 = session2.cookies
+    # cookies2 = session2.login
     # print(cookies2)
     # print("--------------prelogin3----------")
     # session3, jdata3 = pre_login1(session2, jdata)
-    # cookies3 = session2.cookies
+    # cookies3 = session2.login
     # print(cookies3)
     print('-------------------home page----------')
     get_home_page(session)

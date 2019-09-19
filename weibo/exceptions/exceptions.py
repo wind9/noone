@@ -5,5 +5,5 @@ class LoginException(Exception):
 
 class CookieGenException(Exception):
     """
-    Gen cookies error
+    Gen login error
     """

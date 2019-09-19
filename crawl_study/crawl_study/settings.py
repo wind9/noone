@@ -32,7 +32,7 @@ ROBOTSTXT_OBEY = True
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
-# Disable cookies (enabled by default)
+# Disable login (enabled by default)
 #COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)

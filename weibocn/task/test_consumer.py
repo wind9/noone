@@ -1,7 +1,5 @@
-from .workers import app
+from logger import weibo
 
 
-@app.task
-def test(x, y):
-    print("收到参数x：%s,y:%s" % (x,y))
-    return x + y
+for i in range(100):
+    weibo.info("写入数字:%s"%i)

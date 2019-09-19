@@ -16,8 +16,9 @@ def get_tid_c_w():
         "fp": fp
     }
     r = requests.post(GENVISTOR_URL1, headers=headers, data=post_data)
+    html = r.text
     pattern = "({.*})"
-    m = re.search(pattern, r.text)
+    m = re.search(pattern, html)
     s = m.group()
     jdata = json.loads(s)
     tid = jdata.get('data').get('tid')
@@ -37,18 +38,20 @@ def get_cookies():
         "_rand": format(random.random(), '.17f')
     }
     r = requests.get(GENVISTOR_URL2, params=post_data, headers=headers)
+    html = r.text
     pattern = "({.*})"
-    m = re.search(pattern, r.text)
+    m = re.search(pattern, html)
     s = m.group()
     jdata = json.loads(s)
     sub = jdata.get('data').get('sub')
     subp = jdata.get('data').get('subp')
-    return dict(SUB=sub,SUBP=subp)
+    return dict(SUB=sub, SUBP=subp)
 
 
-cookies = get_cookies()
-test_url = "https://weibo.com/hanhan"
-r = requests.get(test_url, cookies=cookies, headers=headers)
-#print(r.text)
-follows, fans, tweets = get_follows_fans_tweets(r.text)
-print(follows, fans, tweets)
+
+# login = get_cookies()
+# test_url = "https://weibo.com/hanhan"
+# r = requests.get(test_url, login=login, headers=headers)
+# #print(r.text)
+# follows, fans, tweets = get_follows_fans_tweets(r.text)
+# print(follows, fans, tweets)

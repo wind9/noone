@@ -18,7 +18,7 @@ def get_urls():
 
 
 def get_cookies():
-    return cf.get('cookies')
+    return cf.get('login')
 
 
 def get_celery_args():
