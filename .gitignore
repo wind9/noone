@@ -1,0 +1,27 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/workspace.xml
+celery_test/__pycache__/
+crawl_study/crawl_study/__pycache__/
+crawl_study/crawl_study/spiders/__pycache__/
+crawl_study/crawl_study/utils/__pycache__/
+laoyaoba/laoyaoba/__pycache__/
+laoyaoba/laoyaoba/spiders/__pycache__/
+stock/config/__pycache__/
+stock/db/__pycache__/
+stock/decorators/__pycache__/
+stock/logger/__pycache__/
+stock/tasks/__pycache__/
+stock/utils/__pycache__/
+weibo/config/__pycache__/
+weibo/db/__pycache__/
+weibo/logs/
+weibo/test/__pycache__/
+weibo/utils/__pycache__/
+weibocn/config/__pycache__/
+weibocn/db/__pycache__/
+weibocn/logger/__pycache__/
+weibocn/login/__pycache__/
+weibocn/page_parse/__pycache__/
+weibocn/task/__pycache__/
+local_test
