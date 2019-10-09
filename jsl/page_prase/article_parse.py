@@ -10,12 +10,8 @@ answer_url = "https://www.jisilu.cn/question/ajax/get_answer_comments/answer_id-
 
 def get_article_and_praise(selector):
     article = Article()
-    # article_id = selector.xpath('//div[@id="question_topic_editor"]/@data-id')[0]
-    # print(article_id)
     article.article_id = selector.xpath('//div[@id="question_topic_editor"]/@data-id')[0]
     article.title = selector.xpath('//div[@class="aw-mod-head"]/h1/text()')[0]
-    # poster = selector.xpath('//dd[@class="pull-left"]/a/@data-id')[0]
-    # print(poster)
     article.poster = selector.xpath('//dd[@class="pull-left"]/a/@data-id')[0]
     post_time_str = selector.xpath('//div[@class="aw-question-detail-meta"]/div[1]/span[1]/text()')[0].replace("发表时间 ", "")
     article.post_time = datetime.datetime.strptime(post_time_str, "%Y-%m-%d %H:%M")
@@ -24,10 +20,17 @@ def get_article_and_praise(selector):
     praise_list = selector.xpath('//div[@class="aw-question-detail-meta"]/p[contains(@class,"aw-agree-by")]/a/@data-id')
     article.read_num = selector.xpath('//div[@class="aw-side-bar-mod-body"]/ul/li[2]/span/text()')[0]
     article.follow_num = selector.xpath('//div[@class="aw-side-bar-mod-body"]/ul/li[3]/span/text()')[0]
-    content = selector.xpath('//div[contains(@class,"aw-question-detail-txt")]/text()')
     article.content = "".join(selector.xpath('//div[contains(@class,"aw-question-detail-txt")]/text()'))
-    print(article)
-    CommonOper.add_one(article)
+    praises = []
+    for p in praise_list:
+        praise = Praise()
+        praise.praise_type = 1
+        praise.refer_id = article.article_id
+        praise.praise_user = p
+        #CommonOper.add_one(praise)
+        praises.append(praise)
+    CommonOper.add_all(praises)
+    #CommonOper.add_one(article)
 
     #print(len(post_time_str))
     print(post_time_str)

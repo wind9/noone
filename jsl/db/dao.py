@@ -1,5 +1,5 @@
-from .models import *
-from .basic import db_session
+from db.models import *
+from db.basic import db_session
 
 
 class CommonOper:
@@ -16,3 +16,11 @@ class CommonOper:
         except Exception:
             for data in datas:
                 cls.add_one(data)
+
+    @classmethod
+    def get_article(cls):
+        content = db_session.query(Article.content).filter(Article.id==1).first()
+        print(content)
+
+
+# CommonOper.get_article()

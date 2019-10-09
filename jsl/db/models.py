@@ -18,6 +18,9 @@ class Comment(Base):
 class Praise(Base):
     __table__ = praise
 
+    def __repr__(self):
+        return "赞来自:{}".format(self.praise_user)
+
 
 class Poster(Base):
     __table__ = poster
