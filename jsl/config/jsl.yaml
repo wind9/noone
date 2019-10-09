@@ -1,0 +1,13 @@
+mysql:
+  host: 121.15.10.34
+  port: 8911
+  user: wh
+  password: wh2013
+  db: jsl
+
+redis:
+  host: 121.15.10.34
+  port: 8911
+  password: rt0755
+  broker_db: 1
+  backend_db: 2

@@ -13,6 +13,7 @@ backend_url = "redis://:{}@{}:{}/{}".format(redis_pass, redis_host, redis_port, 
 tasks = ['local_test.task1', 'local_test.task2', 'local_test.task3']
 app = Celery("ceshi_tasks", include=tasks, broker=broker_url, backend=backend_url)
 
+
 app.conf.update(
     CELERY_QUEUES=(
         Queue('task1_queue', exchange=Exchange('task1_ex', type='direct'), routing_key='task1_routing'),
