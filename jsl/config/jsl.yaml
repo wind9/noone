@@ -7,7 +7,7 @@ mysql:
 
 redis:
   host: 121.15.10.34
-  port: 8911
+  port: 8912
   password: rt0755
   broker_db: 1
   backend_db: 2
