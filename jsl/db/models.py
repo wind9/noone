@@ -1,9 +1,9 @@
 from .basic import Base
-from .tables import article, comment, praise, poster, follow
+from .tables import question, answer, agree, people, follow, answer_comment
 
 
-class Article(Base):
-    __table__ = article
+class Question(Base):
+    __table__ = question
 
     def __repr__(self):
         return "文章title:{},发布时间:{},浏览数:{},最后访问时间:{},关注数:{}".format(
@@ -11,19 +11,29 @@ class Article(Base):
         )
 
 
-class Comment(Base):
-    __table__ = comment
-
-
-class Praise(Base):
-    __table__ = praise
+class Answer(Base):
+    __table__ = answer
 
     def __repr__(self):
-        return "赞来自:{}".format(self.praise_user)
+        return "评论id:{},评论内容:{}".format(self.answer_id, self.content)
 
 
-class Poster(Base):
-    __table__ = poster
+class AnswerComment(Base):
+    __table__ = answer_comment
+
+    def __repr__(self):
+        return "评论id:{},评论内容:{}".format(self.comment_id, self.content)
+
+
+class Agree(Base):
+    __table__ = agree
+
+    def __repr__(self):
+        return "赞来自:{}".format(self.agree_user)
+
+
+class People(Base):
+    __table__ = people
 
 
 class Follow(Base):

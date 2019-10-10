@@ -14,7 +14,7 @@ backend_uri = "redis://:{}@{}:{}/{}".format(redis_password, redis_host, redis_po
 worker_log_path = os.path.join(os.path.dirname(os.path.dirname(__file__))+'/logs', 'worker.log')
 #beat_log_path = os.path.join(os.path.dirname(os.path.dirname(__file__))+'/logs', 'worker.log')
 
-tasks = ['tasks.do_article', 'tasks.do_user', 'tasks.do_comment']
+tasks = ['tasks.do_question', 'tasks.do_people', 'tasks.do_answer_comment']
 
 app = Celery("jsl_task", broker=broker_uri, backend=backend_uri, include=tasks)
 app.conf.update(
@@ -25,8 +25,8 @@ app.conf.update(
     CELERY_RESULT_SERIALIZER='json',
     CELERY_TASK_SERIALIZER='json',
     CELERY_QUEUES=(
-        Queue('article_queue', exchange=Exchange('article_exchange', type='direct'), routing_key='article'),
-        Queue('comment_queue', exchange=Exchange('comment_exchange', type='direct'), routing_key='comment'),
-        Queue('article_queue', exchange=Exchange('article_exchange', type='direct'), routing_key='user'),
+        Queue('question_queue', exchange=Exchange('question_exchange', type='direct'), routing_key='question'),
+        Queue('answer_comment_queue', exchange=Exchange('answer_comment_exchange', type='direct'), routing_key='answer_comment'),
+        Queue('people_queue', exchange=Exchange('people_exchange', type='direct'), routing_key='people'),
     )
 )
