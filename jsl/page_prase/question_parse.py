@@ -51,7 +51,6 @@ def get_answers_and_agree(selector):
         answer_count_str = a.xpath('div/div/div[2]/a/text()')[0]
         answer_count = int(answer_count_str.replace("条评论","").strip())
         if answer_count:
-            #print("%s二级评论已发送至队列"%answer_count_str)
             app.send_task('tasks.question.do_answer_comment', args=(answer.answer_id,), queue='answer_comment_queue',
                           routing_key='answer_comment')
 
