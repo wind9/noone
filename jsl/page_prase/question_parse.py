@@ -36,10 +36,12 @@ def get_question_and_agree(selector):
 
 
 def get_answers_and_agree(selector):
+    question_id = selector.xpath('//div[@id="question_topic_editor"]/@data-id')[0]
     answer_list = selector.xpath('//div[@class="aw-item"]')
     answers = []
     for a in answer_list:
         answer = Answer()
+        answer.question_id = question_id
         answer.answer_id = a.xpath('@id')[0].split('_')[2]
         answer.answer_type = 1
         answer.people_id = a.xpath('a/@data-id')[0]

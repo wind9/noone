@@ -4,7 +4,8 @@ from db import metadata
 
 question = Table('question', metadata,
                  Column("id", Integer, primary_key=True),
-                 Column("question_id", Integer, unique=True),
+                 Column("question_id", Integer),
+                 #Column("question_id", Integer, unique=True),
                  Column("people_id", String(100)),
                  Column("title", String(500)),
                  Column("post_time", DateTime),
@@ -17,7 +18,8 @@ question = Table('question', metadata,
 
 answer = Table('answer', metadata,
                Column("id", Integer, primary_key=True),
-               Column("answer_id", Integer, unique=True),
+               Column("question_id", Integer),
+               Column("answer_id", Integer),
                Column("people_id", String(100)),
                Column("post_time", DateTime),
                Column("content", LONGTEXT)
