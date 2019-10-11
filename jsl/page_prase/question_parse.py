@@ -16,7 +16,7 @@ def get_question_and_agree(selector):
     question.question_id = selector.xpath('//div[@id="question_topic_editor"]/@data-id')[0]
     question.title = selector.xpath('//div[@class="aw-mod-head"]/h1/text()')[0]
     question.people_id = selector.xpath('//dd[@class="pull-left"]/a/@data-id')[0]
-    app.send_task("tasks.question.do_people", args=(question.people_id,),
+    app.send_task("tasks.people.do_people", args=(question.people_id,),
                   queue="people_queue", routing_key="people")
     post_time_str = selector.xpath('//div[@class="aw-question-detail-meta"]/div[1]/span[1]/text()')[0].replace("发表时间 ", "")
     question.post_time = str2datetime(post_time_str)
@@ -29,7 +29,7 @@ def get_question_and_agree(selector):
     CommonOper.add_one(question)
     agrees = []
     for p in agree_list:
-        app.send_task("tasks.question.do_people", args=(p,),
+        app.send_task("tasks.people.do_people", args=(p,),
                       queue="people_queue", routing_key="people")
         agree = Agree()
         agree.question_id = question.question_id
@@ -46,7 +46,7 @@ def get_answers_and_agree(selector):
         answer = Answer()
         answer.question_id = question_id
         answer.answer_id = a.xpath('@id')[0].split('_')[2]
-        app.send_task("tasks.question.do_people", args=(answer.answer_id,),
+        app.send_task("tasks.people.do_people", args=(answer.answer_id,),
                       queue="people_queue", routing_key="people")
         answer.answer_type = 1
         answer.people_id = a.xpath('a/@data-id')[0]
@@ -64,7 +64,7 @@ def get_answers_and_agree(selector):
 
         agrees = []
         for p in agree_list:
-            app.send_task("tasks.question.do_people", args=(p,),
+            app.send_task("tasks.people.do_people", args=(p,),
                           queue="people_queue", routing_key="people")
             agree = Agree()
             agree.question_id = question_id
