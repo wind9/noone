@@ -35,7 +35,14 @@ class Agree(Base):
 class People(Base):
     __table__ = people
 
+    def __repr__(self):
+        return "id:{},用户名:{},个人说明:{}".format(self.people_id, self.people_name, self.people_desc)
+
 
 class Follow(Base):
     __table__ = follow
+
+    def __repr__(self):
+        return "关注者id:{},被关注者id:{}".format(self.follower_id, self.refer_id)
+
 
