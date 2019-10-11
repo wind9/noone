@@ -28,16 +28,17 @@ answer = Table('answer', metadata,
 answer_comment = Table('answer_comment', metadata,
                        Column("id", Integer, primary_key=True),
                        Column("answer_id", Integer),
-                       Column("comment_id", String(100)),
+                       Column("comment_id", Integer),
+                       Column("people_id", Integer),
                        Column("post_time", DateTime),
                        Column("content", LONGTEXT)
                        )
 
 agree = Table('agree', metadata,
               Column("id", Integer, primary_key=True),
-              Column("agree_type", Integer),  # 1:question点赞 2:awnswer点赞
-              Column("refer_id", String(100)),
-              Column("agree_user", String(100)),
+              Column("question_id", Integer, default=-1),  # 1:question点赞 2:awnswer点赞
+              Column("answer_id", Integer, default=-1),
+              Column("people_id", Integer),
               )
 
 people = Table('people', metadata,
@@ -54,12 +55,13 @@ people = Table('people', metadata,
                Column("agree_num", Integer, default=0),
                Column("thanks_num", Integer, default=0),
                Column("gold_num", Integer, default=0),
+               Column("last_active_time", DateTime),
                )
 
 follow = Table('follow', metadata,
                Column("id", Integer, primary_key=True),
-               Column("people_id", Integer),
+               Column("follower_id", Integer),
                Column("follow_type", Integer), #1:用户 2:question
-               Column("follow_id", Integer),
+               Column("refer_id", Integer),
                )
 
