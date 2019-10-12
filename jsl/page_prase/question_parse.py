@@ -85,6 +85,8 @@ def get_answer_comment(answer_id, selector):
         answer_comment.answer_id = answer_id
         answer_comment.comment_id = comment_id
         answer_comment.people_id = c.xpath('div/a/@data-id')[0]
+        app.send_task("tasks.people.do_people", args=(answer_comment.people_id,),
+                      queue="people_queue", routing_key="people")
         post_time_str = c.xpath('div/span/text()')[0]
         answer_comment.post_time = str2datetime(post_time_str)
         answer_comment.content = "".join(c.xpath('div/p[@class="clearfix"]/text()'))
