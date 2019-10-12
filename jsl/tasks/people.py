@@ -1,5 +1,6 @@
 from tasks.workers import app
 from page_prase import crawl_people, crawl_follows
+from db.dao import PeopleOper
 
 people_url_format = "https://www.jisilu.cn/people/{}"
 follows_url_format = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-{}__page-{}"
@@ -7,8 +8,9 @@ follows_url_format = "https://www.jisilu.cn/people/ajax/follows/type-follows__ui
 
 @app.task()
 def do_people(people_id):
-    people_url = people_url_format.format(people_id)
-    crawl_people(people_url)
+    if not PeopleOper.is_exist(people_id):
+        people_url = people_url_format.format(people_id)
+        crawl_people(people_url)
 
 
 @app.task()
