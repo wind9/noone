@@ -12,16 +12,17 @@ def get_people_and_follows(people_id, selector):
     people.people_id = people_id
     people.name = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/h1/text()')[0].strip()
     people.desc = "".join(selector.xpath('//div[@class="aw-user-center"]/div[1]/div/span/text()'))
-    people_locate_spans = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/p[2]/span')
-    if len(people_locate_spans) == 4:
-        people.province = people_locate_spans[1].xpath('a[1]/text()')[0]
-        people.city = people_locate_spans[1].xpath('a[2]/text()')[0]
-        people.sex = people_locate_spans[2].xpath('text()')[1].strip()
-        home_access_str = people_locate_spans[3].xpath('text()')[1]
-        people.home_access_num = re.findall('(\d+)', home_access_str)[0]
-    else:
-        home_access_str = people_locate_spans[1].xpath('text()')[0]
-        people.home_access_num = re.match('\d+', home_access_str)
+    if selector.xpath('//i[contains(@class,"i-user-locate")]'):
+        user_locate = selector.xpath('//i[contains(@class,"i-user-locate")]')[0].getparent()
+        people.province = user_locate.xpath('a[1]/text()')[0]
+        people.city = user_locate.xpath('a[2]/text()')[0]
+    if selector.xpath('//i[contains(@class,"i-user-post")]'):
+        user_post = selector.xpath('//i[contains(@class,"i-user-post")]')[0].getparent()
+        people.post = "".join(user_post.xpath('text()')).strip()
+    if selector.xpath('//i[contains(@class,"i-user-visits")]'):
+        user_visits = selector.xpath('//i[contains(@class,"i-user-visits")]')[0].getparent()
+        user_visits_str = "".join(user_visits.xpath('text()'))
+        people.home_visit_num = re.findall('(\d+)', user_visits_str)[0]
     people_type_spans = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/p[3]/span')
     people.user_type = people_type_spans[0].xpath('a/em/text()')[0].replace("»","").strip()
     people.weiwang_num = people_type_spans[1].xpath('em/text()')[0]
@@ -35,20 +36,6 @@ def get_people_and_follows(people_id, selector):
         people.last_active_time = str2datetime(last_active_time_str)
     CommonOper.add_one(people)
     app.send_task("tasks.people.do_follow", args=(people_id, 0,), queue="people_queue", routing_key="people")
-    # follow_list = selector.xpath('//ul[@class="contents_user_follows"]/li')
-    # print(len(follow_list))
-    # if len(follow_list) == 30:
-    #     app.send_task("tasks.people.do_follow", args=(people_id, 1,),
-    #                   queue="people_queue", routing_key="people")
-    # follows = []
-    # for f in follow_list:
-    #     follow = Follow()
-    #     follow.follower_id = people_id
-    #     follow.follow_type = 1
-    #     follow.refer_id = f.xpath('div/a/@data-id')[0]
-    #     follows.append(follow)
-    #     print(follow)
-    # CommonOper.add_all(follows)
 
 
 def get_follows(follower_id, page_num, selector):
@@ -86,7 +73,7 @@ def crawl_follows(url):
 if __name__ == '__main__':
     # url = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-323339__page-0"
     # crawl_follows(url)
-    url = "https://www.jisilu.cn/people/62443"
+    url = "https://www.jisilu.cn/people/88918"
     crawl_people(url)
 
 
