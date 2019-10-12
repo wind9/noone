@@ -23,7 +23,6 @@ class CommonOper:
 
 class QuestionOper:
     @classmethod
-    @db_commit_decorator
     def is_exist(cls, question_id):
         count = db_session.query(Question.question_id).filter(Question.question_id == question_id).count()
         if count:
@@ -34,7 +33,6 @@ class QuestionOper:
 
 class PeopleOper:
     @classmethod
-    @db_commit_decorator
     def is_exist(cls, people_id):
         count = db_session.query(People.people_id).filter(People.people_id == people_id).count()
         if count:
@@ -43,5 +41,6 @@ class PeopleOper:
             return False
 
 
-# question_id = 102809
-# QuestionOper.is_exist(question_id)
+# question_id = 33351533
+# result = QuestionOper.is_exist(question_id)
+# print(result)
