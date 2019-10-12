@@ -36,7 +36,8 @@ class People(Base):
     __table__ = people
 
     def __repr__(self):
-        return "id:{},用户名:{},个人说明:{}".format(self.people_id, self.people_name, self.people_desc)
+        return "id:{},用户名:{},个人说明:{},最后活跃时间:{}".format(self.people_id, self.people_name, self.people_desc,
+                                                       self.last_active_time)
 
 
 class Follow(Base):

@@ -9,8 +9,8 @@ import re
 
 def get_people_and_follows(people_id, selector):
     people = People()
-    people.id = people_id
-    people.people_name = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/h1/text()')[0]
+    people.people_id = people_id
+    people.people_name = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/h1/text()')[0].strip()
     people.people_desc = "".join(selector.xpath('//div[@class="aw-user-center"]/div[1]/div/span/text()'))
     people_locate_spans = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/p[2]/span')
     if len(people_locate_spans) == 4:
@@ -28,12 +28,11 @@ def get_people_and_follows(people_id, selector):
     people.agree_num = people_type_spans[2].xpath('em/text()')[0]
     people.thanks_num = people_type_spans[3].xpath('em/text()')[0]
     people.gold_num = people_type_spans[4].xpath('em/text()')[0]
-    if len(selector.xpath('//dd')) == 2:
+    if len(selector.xpath('//dd')) > 1:
         last_active_time_str = selector.xpath('//div[@id="detail"]/div/dl[2]/dd/text()')[0]
         people.last_active_time = str2datetime(last_active_time_str)
     CommonOper.add_one(people)
-    app.send_task("tasks.people.do_follow", args=(people_id, 0,),
-                       queue="people_queue", routing_key="people")
+    app.send_task("tasks.people.do_follow", args=(people_id, 0,), queue="people_queue", routing_key="people")
     # follow_list = selector.xpath('//ul[@class="contents_user_follows"]/li')
     # print(len(follow_list))
     # if len(follow_list) == 30:
@@ -83,8 +82,10 @@ def crawl_follows(url):
 
 
 if __name__ == '__main__':
-    url = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-323339__page-0"
-    crawl_follows(url)
+    # url = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-323339__page-0"
+    # crawl_follows(url)
+    url = "https://www.jisilu.cn/people/Hru"
+    crawl_people(url)
 
 
 
