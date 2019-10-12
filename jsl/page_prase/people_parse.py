@@ -10,24 +10,26 @@ import re
 def get_people_and_follows(people_id, selector):
     people = People()
     people.people_id = people_id
-    people.people_name = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/h1/text()')[0].strip()
-    people.people_desc = "".join(selector.xpath('//div[@class="aw-user-center"]/div[1]/div/span/text()'))
+    people.name = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/h1/text()')[0].strip()
+    people.desc = "".join(selector.xpath('//div[@class="aw-user-center"]/div[1]/div/span/text()'))
     people_locate_spans = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/p[2]/span')
     if len(people_locate_spans) == 4:
-        people.province = people_locate_spans[1].xpath('a[1]/@href')
-        people.city = people_locate_spans[1].xpath('a[2]/@href')
-        people.sex = people_locate_spans[2].xpath('text()')[0]
-        home_access_str = people_locate_spans[3].xpath('text()')[0]
-        people.home_access_num = re.match('\d+', home_access_str)
+        people.province = people_locate_spans[1].xpath('a[1]/text()')[0]
+        people.city = people_locate_spans[1].xpath('a[2]/text()')[0]
+        people.sex = people_locate_spans[2].xpath('text()')[1].strip()
+        home_access_str = people_locate_spans[3].xpath('text()')[1]
+        people.home_access_num = re.findall('(\d+)', home_access_str)[0]
     else:
         home_access_str = people_locate_spans[1].xpath('text()')[0]
         people.home_access_num = re.match('\d+', home_access_str)
     people_type_spans = selector.xpath('//div[@class="aw-user-center"]/div[1]/div/p[3]/span')
-    people.people_type = people_type_spans[0].xpath('a/em/text()')[0]
+    people.user_type = people_type_spans[0].xpath('a/em/text()')[0].replace("»","").strip()
     people.weiwang_num = people_type_spans[1].xpath('em/text()')[0]
     people.agree_num = people_type_spans[2].xpath('em/text()')[0]
     people.thanks_num = people_type_spans[3].xpath('em/text()')[0]
     people.gold_num = people_type_spans[4].xpath('em/text()')[0]
+    if '+' in people.gold_num:
+        people.gold_num = 100
     if len(selector.xpath('//dd')) > 1:
         last_active_time_str = selector.xpath('//div[@id="detail"]/div/dl[2]/dd/text()')[0]
         people.last_active_time = str2datetime(last_active_time_str)
@@ -84,7 +86,7 @@ def crawl_follows(url):
 if __name__ == '__main__':
     # url = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-323339__page-0"
     # crawl_follows(url)
-    url = "https://www.jisilu.cn/people/Hru"
+    url = "https://www.jisilu.cn/people/62443"
     crawl_people(url)
 
 
