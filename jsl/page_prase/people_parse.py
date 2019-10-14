@@ -34,7 +34,7 @@ def get_people_and_follows(people_id, selector):
         people.gold_num = people_type_spans[4].xpath('em/text()')[0]
         if '+' in people.gold_num:
             people.gold_num = 100
-        if len(selector.xpath('//dd')) > 1:
+        if selector.xpath('//span[contains(text(),"最后活跃")]'):
             last_active_time_str = selector.xpath('//span[contains(text(),"最后活跃")]')[0].getparent().getnext().xpath('text()')[0]
             print(last_active_time_str)
             people.last_active_time = str2datetime(last_active_time_str)
