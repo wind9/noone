@@ -17,7 +17,7 @@ def get_people_and_follows(people_id, selector):
         people.desc = "".join(selector.xpath('//div[@class="aw-user-center"]/div[1]/div/span/text()'))
         if selector.xpath('//i[contains(@class,"i-user-locate")]'):
             user_locate = selector.xpath('//i[contains(@class,"i-user-locate")]')[0].getparent()
-            people.province = "".joinuser_locate.xpath('a[1]/text()')
+            people.province = "".join(user_locate.xpath('a[1]/text()'))
             people.city = "".join(user_locate.xpath('a[2]/text()'))
         if selector.xpath('//i[contains(@class,"i-user-post")]'):
             user_post = selector.xpath('//i[contains(@class,"i-user-post")]')[0].getparent()
@@ -35,8 +35,8 @@ def get_people_and_follows(people_id, selector):
         if '+' in people.gold_num:
             people.gold_num = 100
         if len(selector.xpath('//dd')) > 1:
-            last_active_time_str = selector.xpath('//div[@id="detail"]/div/dl[2]/dd/text()')[0]
-            last_active_time_str = selector.xpath('//span[contains(text(),"最后活跃")]').getparent().getnext()[0]
+            last_active_time_str = selector.xpath('//span[contains(text(),"最后活跃")]')[0].getparent().getnext().xpath('text()')[0]
+            print(last_active_time_str)
             people.last_active_time = str2datetime(last_active_time_str)
         CommonOper.add_one(people)
         CommonOper.add_filter_key("people_id", people_id)
@@ -89,7 +89,7 @@ def crawl_follows(url):
 if __name__ == '__main__':
     # url = "https://www.jisilu.cn/people/ajax/follows/type-follows__uid-323339__page-0"
     # crawl_follows(url)
-    url = "https://www.jisilu.cn/people/2342442"
+    url = "https://www.jisilu.cn/people/2"
     crawl_people(url)
 
 
