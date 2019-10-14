@@ -12,7 +12,6 @@ backend_db = redis_args.get('backend_db')
 broker_uri = "redis://:{}@{}:{}/{}".format(redis_password, redis_host, redis_port, broker_db)
 backend_uri = "redis://:{}@{}:{}/{}".format(redis_password, redis_host, redis_port, backend_db)
 worker_log_path = os.path.join(os.path.dirname(os.path.dirname(__file__))+'/logs', 'worker.log')
-#beat_log_path = os.path.join(os.path.dirname(os.path.dirname(__file__))+'/logs', 'worker.log')
 
 tasks = ['tasks.question', 'tasks.people', 'tasks.question']
 

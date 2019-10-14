@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import base, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config import get_mysql_args, get_redis_args
+from redis import StrictRedis, ConnectionPool
 
 
 def get_engine():
@@ -14,6 +15,16 @@ def get_engine():
     return create_engine(uri)
 
 
+def get_filter_redis():
+    redis_args = get_redis_args()
+    filter_redis_uri = "redis://:{}@{}:{}/{}".format(redis_args.get('password'), redis_args.get('host'),
+                                              redis_args.get('port'), redis_args.get('filter_db'))
+    pool = ConnectionPool.from_url(filter_redis_uri)
+    filter_redis = StrictRedis(connection_pool=pool)
+    return filter_redis
+
+
+filter_redis = get_filter_redis()
 engine = get_engine()
 Base = declarative_base()
 Session = sessionmaker(bind=engine)

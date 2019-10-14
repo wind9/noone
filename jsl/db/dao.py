@@ -1,6 +1,7 @@
 from db.models import *
-from db.basic import db_session
+from db.basic import db_session, filter_redis
 from decorators import db_commit_decorator
+from config import get_redis_args
 
 
 class CommonOper:
@@ -20,27 +21,17 @@ class CommonOper:
             for data in datas:
                 cls.add_one(data)
 
-
-class QuestionOper:
     @classmethod
-    def is_exist(cls, question_id):
-        count = db_session.query(Question.question_id).filter(Question.question_id == question_id).count()
-        if count:
-            return True
-        else:
-            return False
+    def is_exist(cls, key_type, key):
+        is_exist = filter_redis.sismember(key_type, key)
+        return is_exist
 
-
-class PeopleOper:
     @classmethod
-    def is_exist(cls, people_id):
-        count = db_session.query(People.people_id).filter(People.people_id == people_id).count()
-        if count:
-            return True
-        else:
-            return False
+    def add_filter_key(cls, key_type, key):
+        filter_redis.sadd(key_type, key)
 
 
-# question_id = 33351533
-# result = QuestionOper.is_exist(question_id)
+# key_type = 'kk'
+# check_id = '88488'
+# result = CommonOper.is_exist(key_type, check_id)
 # print(result)

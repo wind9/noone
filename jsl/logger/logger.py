@@ -31,7 +31,7 @@ log_conf_dict = {
             "level": "INFO",
             "filename": log_file_path,
             "encoding": "utf-8",
-            "maxBytes": 10*1024*1024,
+            "maxBytes": 100*1024*1024,
             "backupCount": 5,
         }
     },
@@ -41,7 +41,7 @@ log_conf_dict = {
             "level": "INFO"
         },
         "jsl": {
-            "handlers": ["file", "console"],
+            "handlers": ["file"],
             "level": "INFO"
         }
     }

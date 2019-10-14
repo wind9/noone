@@ -11,3 +11,4 @@ redis:
   password: rt0755
   broker_db: 1
   backend_db: 2
+  filter_db: 3
