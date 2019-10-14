@@ -12,7 +12,7 @@ log_conf_dict = {
     "formatters": {
         "detail": {
             "format": "%(asctime)s|%(name)s|%(levelname)s|[%(message)s]",
-            "datefmt": "%Y-%m-%d %H:%M:%S"
+            "datefmt": "%Y-%m-%d %H:%M:%S.%f"
         },
         "sample": {
             "format": "%(asctime)s|[%(message)s]",
@@ -31,7 +31,7 @@ log_conf_dict = {
             "level": "INFO",
             "filename": log_file_path,
             "encoding": "utf-8",
-            "maxBytes": 100*1024*1024,
+            "maxBytes": 1024*1024*1024,
             "backupCount": 5,
         }
     },
