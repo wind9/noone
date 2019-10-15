@@ -36,7 +36,6 @@ def get_people_and_follows(people_id, selector):
             people.gold_num = 100
         if selector.xpath('//span[contains(text(),"最后活跃")]'):
             last_active_time_str = selector.xpath('//span[contains(text(),"最后活跃")]')[0].getparent().getnext().xpath('text()')[0]
-            print(last_active_time_str)
             people.last_active_time = str2datetime(last_active_time_str)
         CommonOper.add_one(people)
         CommonOper.add_filter_key("people_id", people_id)
