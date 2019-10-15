@@ -10,4 +10,4 @@ COPY . /home/jsl
 COPY pip.conf /root/.pip/pip.conf
 WORKDIR /home/jsl
 RUN pip install -r requirements.txt
-CMD ["celery", "-A", "tasks.workers", "worker", "-l", "info", "-c","50","-Q", "question_queue,people_queue,answer_comment_queue","-f","logs/celery.log"]
+CMD ["celery", "-A", "tasks.workers", "worker", "-l", "info", "-c","8","-Q", "question_queue,people_queue,answer_comment_queue","-f","logs/celery.log"]

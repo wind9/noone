@@ -15,7 +15,8 @@ worker_log_path = os.path.join(os.path.dirname(os.path.dirname(__file__))+'/logs
 
 tasks = ['tasks.question', 'tasks.people', 'tasks.question']
 
-app = Celery("jsl_task", broker=broker_uri, backend=backend_uri, include=tasks)
+app = Celery("jsl_task", broker=broker_uri, include=tasks)
+#app = Celery("jsl_task", broker=broker_uri, backend=backend_uri, include=tasks)
 app.conf.update(
     CELERY_TIMEZONE='Asia/Shanghai',
     CELERY_ENABLE_UTC=True,
