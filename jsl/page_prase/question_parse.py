@@ -3,7 +3,7 @@ from lxml import etree
 from db.models import Question, Answer, Agree, AnswerComment
 from db.dao import CommonOper
 from utils import str2datetime
-from tasks.workers import app
+from tasks import app, task_filter
 from page_prase.basic import get_html
 from logger import jsl_log
 import re
@@ -36,12 +36,11 @@ def get_question_and_agree(question_id, selector):
     try:
         agree_list = selector.xpath('//div[@class="aw-question-detail-meta"]/p[contains(@class,"aw-agree-by")]/a/@data-id')
         for p in agree_list:
-                app.send_task("tasks.people.do_people", args=(p,),
-                              queue="people_queue", routing_key="people")
-                agree = Agree()
-                agree.question_id = question.question_id
-                agree.people_id = p
-                agrees.append(agree)
+            task_filter('question', p)
+            agree = Agree()
+            agree.question_id = question.question_id
+            agree.people_id = p
+            agrees.append(agree)
         CommonOper.add_all(agrees)
     except Exception as e:
         jsl_log.warning("get agree_list error,question_id:{},here are details {}".format(question_id, e))
@@ -55,8 +54,7 @@ def get_answers_and_agree(question_id, selector):
             answer = Answer()
             answer.question_id = question_id
             answer.answer_id = a.xpath('@id')[0].split('_')[2]
-            app.send_task("tasks.people.do_people", args=(answer.answer_id,),
-                          queue="people_queue", routing_key="people")
+            task_filter('people', answer.answer_id)
             answer.answer_type = 1
             answer.people_id = a.xpath('a/@data-id')[0]
             answer.content = "".join(a.xpath('div/div/div[1]/div/text()'))
@@ -71,8 +69,7 @@ def get_answers_and_agree(question_id, selector):
             agrees = []
             agree_list = a.xpath('div/div/div[1]/p[2]/a/@data-id')
             for p in agree_list:
-                app.send_task("tasks.people.do_people", args=(p,),
-                              queue="people_queue", routing_key="people")
+                task_filter('people', p)
                 agree = Agree()
                 agree.question_id = question_id
                 agree.answer_id = answer.answer_id
@@ -95,8 +92,7 @@ def get_answer_comment(answer_id, selector):
             answer_comment.answer_id = answer_id
             answer_comment.comment_id = comment_id
             answer_comment.people_id = c.xpath('div/a/@data-id')[0]
-            app.send_task("tasks.people.do_people", args=(answer_comment.people_id,),
-                          queue="people_queue", routing_key="people")
+            task_filter('people', answer_comment.people_id)
             post_time_str = c.xpath('div/span/text()')[0]
             answer_comment.post_time = str2datetime(post_time_str)
             answer_comment.content = "".join(c.xpath('div/p[@class="clearfix"]/text()'))
@@ -111,9 +107,7 @@ def get_relative_question(question_id, selector):
         relative_questions = selector.xpath('//ul[@class="aw-li-border-bottom"]/li')
         for question in relative_questions:
             question_id = question.xpath('a/@href')[0].split('/')[-1]
-            app.send_task('tasks.question.do_question', args=(question_id,), queue='question_queue',
-                          routing_key='question'
-                          )
+            task_filter('question', question_id)
     except Exception as e:
         jsl_log.warning("get relative_question error,question_id:{},here are details {}".format(question_id, e))
 

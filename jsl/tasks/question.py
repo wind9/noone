@@ -9,7 +9,7 @@ answer_comment_url_format = "https://www.jisilu.cn/question/ajax/get_answer_comm
 
 @app.task()
 def do_question(question_id):
-    if not CommonOper.is_exist("people_id", question_id):
+    if not CommonOper.is_exist("question_id", question_id):
         question_url = question_url_format.format(question_id)
         jsl_log.info("开始爬取url:{}".format(question_url))
         crawl_question_and_answer(question_url)

@@ -2,7 +2,7 @@ from lxml import etree
 from db.models import People, Follow
 from utils import str2datetime
 from page_prase.basic import get_html
-from tasks.workers import app
+from tasks import app, task_filter
 from db.dao import CommonOper
 from logger import jsl_log
 from traceback import format_tb
@@ -61,6 +61,7 @@ def get_follows(follower_id, page_num, selector):
             follow.follow_type = 1
             follow.follower_id = follower_id
             follows.append(follow)
+            task_filter("people", follow.refer_id)
         CommonOper.add_all(follows)
     except Exception as e:
         jsl_log.warning("get follow_list error,follower_id:{},here are details {}".format(follower_id, e))
