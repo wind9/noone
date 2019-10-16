@@ -2,7 +2,8 @@ from lxml import etree
 from db.models import People, Follow
 from utils import str2datetime
 from page_prase.basic import get_html
-from tasks import app, task_filter
+from tasks.workers import app
+from tasks.task_filter import task_filter
 from db.dao import CommonOper
 from logger import jsl_log
 from traceback import format_tb

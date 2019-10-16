@@ -3,7 +3,8 @@ from lxml import etree
 from db.models import Question, Answer, Agree, AnswerComment
 from db.dao import CommonOper
 from utils import str2datetime
-from tasks import app, task_filter
+from tasks.workers import app
+from tasks.task_filter import task_filter
 from page_prase.basic import get_html
 from logger import jsl_log
 import re
@@ -18,8 +19,7 @@ def get_question_and_agree(question_id, selector):
         question.question_id = selector.xpath('//div[@id="question_topic_editor"]/@data-id')[0]
         question.title = selector.xpath('//div[@class="aw-mod-head"]/h1/text()')[0]
         question.people_id = selector.xpath('//dd[@class="pull-left"]/a/@data-id')[0]
-        app.send_task("tasks.people.do_people", args=(question.people_id,),
-                      queue="people_queue", routing_key="people")
+        task_filter('people', question.people_id)
         post_time_str = selector.xpath('//div[@class="aw-question-detail-meta"]/div[1]/span[1]/text()')[0].replace("发表时间 ", "")
         question.post_time = str2datetime(post_time_str)
         access_time_str = selector.xpath('//div[@class="aw-side-bar-mod-body"]/ul/li[1]/span/text()')[0]
@@ -36,7 +36,7 @@ def get_question_and_agree(question_id, selector):
     try:
         agree_list = selector.xpath('//div[@class="aw-question-detail-meta"]/p[contains(@class,"aw-agree-by")]/a/@data-id')
         for p in agree_list:
-            task_filter('question', p)
+            task_filter('people', p)
             agree = Agree()
             agree.question_id = question.question_id
             agree.people_id = p
@@ -54,9 +54,9 @@ def get_answers_and_agree(question_id, selector):
             answer = Answer()
             answer.question_id = question_id
             answer.answer_id = a.xpath('@id')[0].split('_')[2]
-            task_filter('people', answer.answer_id)
             answer.answer_type = 1
             answer.people_id = a.xpath('a/@data-id')[0]
+            task_filter('people', answer.people_id)
             answer.content = "".join(a.xpath('div/div/div[1]/div/text()'))
             post_time_str = a.xpath('div/div/div[2]/span/text()')[0]
             answer.post_time = str2datetime(post_time_str)

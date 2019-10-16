@@ -2,13 +2,13 @@ mysql:
   host: 121.15.10.34
   port: 8911
   user: wh
-  password: wh2013
+  password: test@2019
   db: jsl
 
 redis:
-  host: 121.15.10.34
-  port: 8912
-  password: rt0755
+  host: 192.168.1.180
+  port: 6379
+  password: test@2019
   broker_db: 1
   backend_db: 2
   filter_db: 3
