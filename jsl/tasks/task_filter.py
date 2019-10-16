@@ -13,7 +13,7 @@ def task_filter(task_type, param):
             jsl_log.info("相关question已存在,question_id:".format(param))
     elif task_type == 'people':
         if not CommonOper.is_exist("people_id", param):
-            app.send_task('tasks.question.do_people', args=(param,), queue='people_queue',
+            app.send_task('tasks.people.do_people', args=(param,), queue='people_queue',
                           routing_key='people'
                           )
         else:
