@@ -15,7 +15,6 @@ def get_html(url):
     html = ''
     try:
         r = requests.get(url, proxies=proxies, headers=headers, allow_redirects=True)
-        #r = requests.get(url, proxies=proxies, headers=headers, allow_redirects=False)
         html = r.content
         if isinstance(html, bytes):
             html = html.decode("utf-8")
