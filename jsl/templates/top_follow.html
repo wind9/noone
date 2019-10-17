@@ -1,0 +1,12 @@
+<table align="center" border="1" cellspacing="0">
+    {% set i = 0 %}
+    {% for f in follows %}
+    <tr>
+        {% set i = i+1 %}
+        <td>序号:{{ i }}</td>
+        <td><a href="https://www.jisilu.cn/people/{{ f['name'] }}">用户id{{ f['people_id'] }}</a></td>
+        <td>用户名:{{ f['name'] }}</td>
+        <td>关注数:{{ f['follow_num'] }}</td>
+    </tr>
+    {% endfor %}
+</table>

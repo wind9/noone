@@ -12,7 +12,7 @@ class JiweiSpider(CrawlSpider):
     start_urls = ['https://laoyaoba.com/']
 
     rules = (
-        Rule(LinkExtractor(allow=r'https://laoyaoba.com/html/news/newsdetail.*'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(allow=r'https://laoyaoba.com/templates/news/newsdetail.*'), callback='parse_item', follow=True),
     )
 
     def parse_item(self, response):

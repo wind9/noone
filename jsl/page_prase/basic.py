@@ -19,6 +19,6 @@ def get_html(url):
         if isinstance(html, bytes):
             html = html.decode("utf-8")
     except Exception as e:
-        jsl_log.warning("get html error,url:{},here are details {}".format(url, e))
+        jsl_log.warning("get templates error,url:{},here are details {}".format(url, e))
     finally:
         return html

@@ -1,0 +1,11 @@
+<table align="center" border="1" cellspacing="0">
+    {% set i = 0 %}
+    {% for q in questions %}
+    <tr>
+        {% set i = i+1 %}
+        <td>question id:{{ i }}</td>
+        <td>question title:<a href="https://www.jisilu.cn/question/{{ q['question_id'] }}">{{ q['title'] }}</a></td>
+        <td>question agree_num:{{ q['agree_num'] }}</td>
+    </tr>
+    {% endfor %}
+</table>

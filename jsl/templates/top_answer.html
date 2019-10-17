@@ -1,0 +1,12 @@
+<table align="center" border="1" cellspacing="0">
+    {% set i = 0 %}
+    {% for a in answers %}
+    <tr>
+        {% set i = i+1 %}
+        <td>id:{{ i }}</td>
+        <td>question id:<a href="https://www.jisilu.cn/question/{{ a['question_id'] }}">question链接{{ a['question_id'] }}</a>
+        <td>answer_id:<a href="https://www.jisilu.cn/question/ajax/get_answer_comments/answer_id-{{ a['answer_id'] }}">{{ a['answer_id'] }}</a></td>
+        <td>answer agree_num:{{ a['agree_num'] }}</td>
+    </tr>
+    {% endfor %}
+</table>

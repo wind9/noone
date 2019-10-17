@@ -14,7 +14,7 @@ redis_client = redis.Redis(host="192.168.88.200", port=6379, password="redis")
 redis_client = redis.StrictRedis()
 redis_pool = redis.ConnectionPool(host='', port=6379, password="", decode_responses=True)
 redis_client = redis.Redis(connection_pool=redis_pool)
-url = "https://laoyaoba.com/html/news/newsdetail?source=pc&news_id=718629"
+url = "https://laoyaoba.com/templates/news/newsdetail?source=pc&news_id=718629"
 
 
 def get_md5(file_path):
