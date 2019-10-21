@@ -13,6 +13,17 @@ def index():
     return render_template("index.html", top_question=100, top_answer=100, top_follow=100)
 
 
+@app.before_request
+def before_request():
+    from db import db_session
+    g.db = db_session
+
+
+@app.teardown_request
+def teardown_request(exception):
+
+
+
 @app.route('/top_question')
 def top_question():
     questions = get_top_agreed_question(100)

@@ -29,11 +29,7 @@ def get_question_and_agree(question_id, selector):
         question.content = "".join(selector.xpath('//div[contains(@class,"aw-question-detail-txt")]/text()'))
         CommonOper.add_one(question)
         CommonOper.add_filter_key("question_id", question_id)
-    except Exception as e:
-        jsl_log.warning("get question error,question_id:{},here are details {}".format(question_id, e))
-        return
-    agrees = []
-    try:
+        agrees = []
         agree_list = selector.xpath('//div[@class="aw-question-detail-meta"]/p[contains(@class,"aw-agree-by")]/a/@data-id')
         for p in agree_list:
             task_filter('people', p)
@@ -43,7 +39,7 @@ def get_question_and_agree(question_id, selector):
             agrees.append(agree)
         CommonOper.add_all(agrees)
     except Exception as e:
-        jsl_log.warning("get agree_list error,question_id:{},here are details {}".format(question_id, e))
+        jsl_log.warning("get question error,question_id:{},here are details {}".format(question_id, e))
 
 
 def get_answers_and_agree(question_id, selector):

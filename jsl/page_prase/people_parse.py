@@ -48,22 +48,18 @@ def get_people_and_follows(people_id, selector):
 def get_follows(follower_id, page_num, selector):
     try:
         follow_list = selector.xpath('//li')
-    except Exception as e:
-        jsl_log.warning("get follows error,follower_id:{},here are details {}".format(follower_id, e))
-        return
-    follows = []
-    if len(follow_list) == 30:
-        app.send_task("tasks.people.do_follow", args=(follower_id, int(page_num)+1,),
-                      queue="people_queue", routing_key="people")
-    try:
-        for f in follow_list:
-            follow = Follow()
-            follow.refer_id = f.xpath('div/a/@data-id')[0]
-            follow.follow_type = 1
-            follow.follower_id = follower_id
-            follows.append(follow)
-            task_filter("people", follow.refer_id)
-        CommonOper.add_all(follows)
+        follows = []
+        if len(follow_list) == 30:
+            app.send_task("tasks.people.do_follow", args=(follower_id, int(page_num)+1,),
+                          queue="people_queue", routing_key="people")
+            for f in follow_list:
+                follow = Follow()
+                follow.refer_id = f.xpath('div/a/@data-id')[0]
+                follow.follow_type = 1
+                follow.follower_id = follower_id
+                follows.append(follow)
+                task_filter("people", follow.refer_id)
+            CommonOper.add_all(follows)
     except Exception as e:
         jsl_log.warning("get follow_list error,follower_id:{},here are details {}".format(follower_id, e))
 
