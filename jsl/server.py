@@ -15,13 +15,12 @@ def index():
 
 @app.before_request
 def before_request():
-    from db import db_session
-    g.db = db_session
+    print("开始请求")
 
 
 @app.teardown_request
-def teardown_request(exception):
-
+def teardown_request():
+    print("请求结束")
 
 
 @app.route('/top_question')
@@ -85,5 +84,4 @@ if __name__ == '__main__':
     questions = get_top_agreed_question(100)
     print(questions)
     for q in questions:
-        #print(q)
         print("question_id:{}\ttitle:{}\tagree_num:{}".format(q['question_id'], q['title'], q['agree_num']))
