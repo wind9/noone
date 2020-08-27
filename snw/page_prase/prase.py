@@ -1,9 +1,8 @@
-from page_prase.basic import get_selector, get_html
+from page_prase.basic import get_selector
 from tasks import app
 from logger import log
 from db import MarketInfo, CommonOper
 import re
-import json
 
 
 def prase_by_privince(url):
@@ -16,7 +15,7 @@ def prase_by_privince(url):
                 province_url = p.xpath('@href')[0]
                 province_name = p.xpath('text()')[0]
                 app.send_task('tasks.area.do_city_list', args=(province_url,), queue='area')
-                log.info('正在处理{},url:{}'.format(province_name, province_url))
+                log.info('正在处理省份:{},url:{}'.format(province_name, province_url))
 
 
 def prase_by_city(url):
@@ -27,7 +26,7 @@ def prase_by_city(url):
             city_url = city.xpath('@href')[0]
             city_name = city.xpath('text()')[0]
             app.send_task('tasks.area.do_date_list', args=(city_url,), queue='area')
-            log.info('正在处理{},url:{}'.format(city_name, city_url))
+            log.info('正在处理城市:{},url:{}'.format(city_name, city_url))
 
 
 def prase_by_date(url):
@@ -36,10 +35,9 @@ def prase_by_date(url):
         date_list = selector.xpath('//div[contains(@class,"list_list")]/ul/li/a')
         for d in date_list:
             price_url = d.xpath('@href')[0]
-            #price_date = d.xpath('text()')[0]
             price_date = d.getparent().xpath('span/text()')[0].strip('[').strip(']')
             app.send_task('tasks.area.do_page_info', args=(price_url,), queue='area')
-            log.info('正在处理{},url:{}'.format(price_date, price_url))
+            #log.info('正在处理{},url:{}'.format(price_date, price_url))
         next_page_url = selector.xpath('//a[@class="next_page"][contains(text(),"下一页")]/@href')
         if next_page_url:
             app.send_task('tasks.area.do_date_list', args=(next_page_url[0],), queue='area')
@@ -52,7 +50,6 @@ def prase_by_page(url):
         province = selector.xpath('/html/body/div[6]/div[1]/ul/li[4]/a/text()')[0].strip('省')
         pattern = re.compile(province+'(.*)水泥')
         city = re.findall(pattern, title)[0]
-        #print(title)
         date_info = selector.xpath('//div[contains(@class,"infotxt")]/span/text()')[0]
         price_date = re.findall(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', date_info)[0]
         table_list = selector.xpath('//div[contains(@class,"p_area_left")]//tr[contains(@class,"price_table_list")]')
@@ -72,8 +69,10 @@ def prase_by_page(url):
             market_info.company = line.xpath('td[6]/text()')[0]
             price_info_list.append(market_info)
             #CommonOper.add_one(market_info)
-            log.info('正在处理{},日期:{},品牌:{},价格:{}'.format(title, price_date, market_info.brand, market_info.price))
-        app.send_task('tasks.db.save_data', args=(title, json.dumps(price_info_list),), queue='area')
+            #log.info('正在处理{},日期:{},品牌:{},价格:{}'.format(title, price_date, market_info.brand, market_info.price))
+        log.info('正在处理{}'.format(title))
+        CommonOper.add_all(price_info_list)
+        #app.send_task('tasks.db.save_data', args=(title, json.dumps(price_info_list),), queue='area')
 
 
 if __name__ == '__main__':
@@ -81,6 +80,6 @@ if __name__ == '__main__':
     city_url = "https://price.ccement.com/pricenewslist-34-440000-440400.html"
     province_url = "https://price.ccement.com/pricenewslist-1-440000-0.html"
     price_url = "https://price.ccement.com/news/202008261713531002.html"
-    prase_by_date(city_url)
+    #prase_by_date(city_url)
     #prase_by_city(province_url)
-    #prase_by_page(price_url)
+    prase_by_page(price_url)

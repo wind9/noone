@@ -11,6 +11,7 @@ class CommonOper:
     def add_all(cls, datas):
         try:
             db_session.add_all(datas)
+            db_session.commit()
         except Exception:
             for data in datas:
                 cls.add_one(data)
