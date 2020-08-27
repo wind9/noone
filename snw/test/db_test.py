@@ -1,9 +1,13 @@
-from db import CommonOper, MarketInfo
+from db import CommonOper, MarketInfo, filter_redis
 import datetime
 import re
 
 if __name__ == '__main__':
-    s = "来源：水泥网信息中心      发布日期：2020-08-26 17:13:53"
-    p = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-    r = re.findall(p, s)
-    print(r)
+    name = 'snw'
+    value = 'https://price.ccement.com/pricenewslist-1-440000-440404.html'
+    #result = filter_redis.sadd(name, value)
+    #print(result)
+    #print("{}已添加".format(value))
+    isExist = CommonOper.isExist(name, value)
+    print("验证是否存在")
+    print(isExist)

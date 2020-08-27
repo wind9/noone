@@ -6,6 +6,8 @@ from lxml import etree
 
 
 base_url = "https://price.ccement.com"
+
+
 def get_html(url):
     html = ''
     user_agent = random.choice(user_agents)
