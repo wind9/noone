@@ -8,7 +8,7 @@ mysql:
 redis:
 #  host: 121.15.10.34
 #  port: 8912
-  host: 192.168.1.180
+  host: 116.24.64.102
   port: 6379
   password: 123456
   broker_db: 1

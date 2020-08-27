@@ -10,4 +10,4 @@ COPY . /home/snw
 COPY pip.conf /root/.pip/pip.conf
 WORKDIR /home/snw
 RUN pip install -r requirements.txt
-CMD ["celery", "-A", "tasks.workers", "worker", "-l", "info", "-c","8","-Q", "area","-f","logs/worker.log"]
+CMD ["celery", "-A", "tasks.workers", "worker", "-l", "info", "-c","50","-Q", "area","-f","logs/worker.log"]
