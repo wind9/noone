@@ -1,0 +1,10 @@
+amqp==2.5.0
+celery==4.4.0rc2
+kombu==4.6.3
+lxml==4.3.0
+PyMySQL==0.7.11
+pyOpenSSL==19.0.0
+PyYAML==3.12
+redis==3.3.2
+requests==2.4.3
+SQLAlchemy==1.1.15
