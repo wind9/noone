@@ -6,10 +6,8 @@ mysql:
   db: snw
 
 redis:
-#  host: 121.15.10.34
-#  port: 8912
-  host: 116.24.64.102
-  port: 6379
+  host: 121.15.10.34
+  port: 8912
   password: 123456
   broker_db: 1
   backend_db: 2
