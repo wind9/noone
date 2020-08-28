@@ -10,8 +10,9 @@ market_info = Table('market_info', metadata,
                     Column("city", String(100)),
                     Column("brand", String(100)),
                     Column("sn_type", String(100)),
-                    Column("price", String(100)),
+                    Column("price_desc", String(100)),
                     Column("company", String(100)),
+                    Column('price', String(100)),
                     Column("ext1", String(100)),
                     Column("ext2", String(100))
                     )

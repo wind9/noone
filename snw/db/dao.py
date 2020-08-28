@@ -20,3 +20,7 @@ class CommonOper:
     def isExist(cls, name, value):
         return filter_redis.sismember(name, value)
 
+    @classmethod
+    def add_filter_key(cls, name, value):
+        filter_redis.sadd(name, value)
+

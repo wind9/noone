@@ -8,6 +8,7 @@ from db import CommonOper
 def do_province_list(url):
     url = base_url + url
     if not CommonOper.isExist('snw', url):
+        CommonOper.add_filter_key('snw', url)
         prase_by_privince(url)
 
 
@@ -15,6 +16,7 @@ def do_province_list(url):
 def do_city_list(url):
     url = base_url + url
     if not CommonOper.isExist('snw', url):
+        CommonOper.add_filter_key('snw', url)
         prase_by_city(url)
 
 
@@ -22,6 +24,7 @@ def do_city_list(url):
 def do_date_list(url):
     url = base_url + url
     if not CommonOper.isExist('snw', url):
+        CommonOper.add_filter_key('snw', url)
         prase_by_date(url)
 
 
@@ -29,4 +32,5 @@ def do_date_list(url):
 def do_page_info(url):
     url = base_url + url
     if not CommonOper.isExist('snw', url):
+        CommonOper.add_filter_key('snw', url)
         prase_by_page(url)
