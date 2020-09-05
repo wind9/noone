@@ -7,25 +7,28 @@ from db import CommonOper
 @app.task()
 def do_province_list(url):
     url = base_url + url
-    if not CommonOper.isExist('snw', url):
-        CommonOper.add_filter_key('snw', url)
-        prase_by_privince(url)
+    prase_by_privince(url)
+    # if not CommonOper.isExist('snw', url):
+    #     CommonOper.add_filter_key('snw', url)
+    #     prase_by_privince(url)
 
 
 @app.task()
 def do_city_list(url):
     url = base_url + url
-    if not CommonOper.isExist('snw', url):
-        CommonOper.add_filter_key('snw', url)
-        prase_by_city(url)
+    prase_by_city(url)
+    # if not CommonOper.isExist('snw', url):
+    #     CommonOper.add_filter_key('snw', url)
+    #     prase_by_city(url)
 
 
 @app.task()
 def do_date_list(url):
     url = base_url + url
-    if not CommonOper.isExist('snw', url):
-        CommonOper.add_filter_key('snw', url)
-        prase_by_date(url)
+    prase_by_date(url)
+    # if not CommonOper.isExist('snw', url):
+    #     CommonOper.add_filter_key('snw', url)
+    #     prase_by_date(url)
 
 
 @app.task()
