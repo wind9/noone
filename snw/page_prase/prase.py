@@ -67,6 +67,12 @@ def prase_by_page(url):
                 market_info.price_desc = line.xpath('td[4]/span/text()')[0]
             else:
                 market_info.price_desc = line.xpath('td[4]/text()')[0].strip()
+            price_pattern = '(\d{3})'
+            price_section = re.findall(price_pattern, market_info.price_desc)
+            if price_section:
+                market_info.price = (float(price_section[0]) + float(price_section[1]))/2
+            else:
+                market_info.price = 0
             market_info.company = line.xpath('td[6]/text()')[0]
             price_info_list.append(market_info)
             #CommonOper.add_one(market_info)
