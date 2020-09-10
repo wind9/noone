@@ -40,6 +40,7 @@ def prase_by_date(url):
             #log.info('正在处理{},url:{}'.format(price_date, price_url))
         next_page_url = selector.xpath('//a[@class="next_page"][contains(text(),"下一页")]/@href')
         if next_page_url:
+            log.info("当前页:{},处理下一页:{}".format(url, next_page_url[0]))
             app.send_task('tasks.area.do_date_list', args=(next_page_url[0],), queue='area')
 
 
