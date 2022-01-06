@@ -1,5 +1,5 @@
 amqp==2.5.0
-celery==4.4.0rc2
+celery==5.2.2
 kombu==4.6.3
 lxml==4.3.0
 PyMySQL==0.7.11
